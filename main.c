@@ -45,11 +45,50 @@ void activateRGB (int r, int g, int b)
     }
 }
 
-void printDigit (char letter)
+void printOneDigit (int nDigit, char letter)
 {
-    // Activate the last digit
-    TRISBbits.TRISB12 = 0;
-    LATBbits.LATB12 = 0;
+                TRISAbits.TRISA10 = 0;
+            TRISAbits.TRISA9 = 0;
+            TRISBbits.TRISB13 = 0;
+            TRISBbits.TRISB12 = 0;
+
+        up() = 1; // Segment haut-haut
+        up_right() = 1;// Segment haut-droit
+        up_left()  = 1; // Segment bas-droit
+        middle() = 1;//Middle Segment
+        down() = 1;// Segment bas-bas
+        down_left() = 1;// Segment bas-gauche
+        down_right() = 1; // Segment bas-droite
+
+    
+    switch (nDigit)
+    {
+        case 1: // AN3
+            LATAbits.LATA10 = 0;
+            LATAbits.LATA9 = 1;
+            LATBbits.LATB13 = 1;
+            LATBbits.LATB12 = 1;
+            break;
+        case 2:
+            LATAbits.LATA10 = 1;
+            LATAbits.LATA9 = 0;
+            LATBbits.LATB13 = 1;
+            LATBbits.LATB12 = 1;
+            break;
+        case 3:
+            LATAbits.LATA10 = 1;
+            LATAbits.LATA9 = 1;
+            LATBbits.LATB13 = 0;
+            LATBbits.LATB12 = 1;
+            break;
+        case 4:
+            // Activate the last digit
+             LATAbits.LATA10 = 1;
+            LATAbits.LATA9 = 1;
+            LATBbits.LATB13 = 1;
+            LATBbits.LATB12 = 0;
+            break;
+    }
     
     // Define all 7-segments as output
     TRISGbits.TRISG12 = 0; // Segment haut-haut
@@ -59,6 +98,7 @@ void printDigit (char letter)
     TRISGbits.TRISG13 = 0;// Segment bas-bas
     TRISGbits.TRISG15 = 0;// Segment bas-gauche
     TRISDbits.TRISD7 = 0; // Segment haut-gauche
+    
 
     switch (letter)
     {
@@ -84,40 +124,39 @@ case '5':
         down_left() = 1;// Segment bas-gauche
         down_right() = 0; // Segment bas-droite
       break;
-      case '3':
+        case '3':
         case 3:
-      //Afficher numéro 3
-        up() = 0; // Segment haut-haut
-        up_right() = 0;// Segment haut-droit
-        up_left()  = 1; // Segment bas-droit
-        middle() = 0;//Middle Segment
-        down() = 0;// Segment bas-bas
-        down_left() = 1;// Segment bas-gauche
-        down_right() = 0; // Segment bas-droite
-      break;
-       case '2':
+           //Afficher numéro 3
+           up() = 0; // Segment haut-haut
+           up_right() = 0;// Segment haut-droit
+           up_left()  = 1; // Segment bas-droit
+           middle() = 0;//Middle Segment
+           down() = 0;// Segment bas-bas
+           down_left() = 1;// Segment bas-gauche
+           down_right() = 0; // Segment bas-droite
+           break;
+        case '2':
         case 2:
-      //Afficher numéro 2
-        up() = 0; // Segment haut-haut
-        up_right() = 0;// Segment haut-droit
-        up_left()  = 1; // Segment bas-droit
-        middle() = 0;//Middle Segment
-        down() = 0;// Segment bas-bas
-        down_left() = 0;// Segment bas-gauche
-        down_right() = 1; // Segment bas-droite
-      break;
-     
-       case '1':
-       case 1:
-      //Afficher numéro 1
-        up() = 1; // Segment haut-haut
-        up_right() = 0;// Segment haut-droit
-        up_left()  = 1; // Segment bas-droit
-        middle() = 1;//Middle Segment
-        down() = 1;// Segment bas-bas
-        down_left() = 1;// Segment bas-gauche
-        down_right() = 0; // Segment bas-droite
-      break;
+          //Afficher numéro 2
+            up() = 0; // Segment haut-haut
+            up_right() = 0;// Segment haut-droit
+            up_left()  = 1; // Segment bas-droit
+            middle() = 0;//Middle Segment
+            down() = 0;// Segment bas-bas
+            down_left() = 0;// Segment bas-gauche
+            down_right() = 1; // Segment bas-droite
+            break;
+        case '1':
+        case 1:
+           //Afficher numéro 1
+           up() = 1; // Segment haut-haut
+           up_right() = 0;// Segment haut-droit
+           up_left()  = 1; // Segment bas-droit
+           middle() = 1;//Middle Segment
+           down() = 1;// Segment bas-bas
+           down_left() = 1;// Segment bas-gauche
+           down_right() = 0; // Segment bas-droite
+           break;
         case '0':
         case 0:
             //"Entrés" des segments
@@ -173,6 +212,7 @@ case '5':
            down_right() = 0; // Segment bas-droite
            break;
         case 'a':
+        case 10:
             up() = 0; // Segment haut-haut
             up_left() = 0;  // Segment haut-gauche
             up_right() = 0; // Segment haut-droit
@@ -182,6 +222,7 @@ case '5':
             down() = 1; // Segment bas-bas
             break;
         case 'b':
+        case 11:
             up() = 1; // Segment haut-haut
             up_left() = 0;  // Segment haut-gauche
             up_right() = 1; // Segment haut-droit
@@ -190,7 +231,8 @@ case '5':
             down_right() = 0;  // Segment bas-droit
             down() = 0; // Segment bas-bas
             break;
-        case 'c':            
+        case 'c':
+        case 12:            
             up() = 0; // Segment haut-haut
             up_left() = 0;  // Segment haut-gauche
             up_right() = 1; // Segment haut-droit
@@ -199,7 +241,8 @@ case '5':
             down_right() = 1;  // Segment bas-droit
             down() = 0; // Segment bas-bas
             break;
-        case 'd':            //"Exécution des commandes" des segments
+        case 'd': 
+        case 13://"Exécution des commandes" des segments
             up() = 1; // Segment haut-haut
             up_left() = 1;  // Segment haut-gauche
             up_right() = 0; // Segment haut-droit
@@ -208,7 +251,8 @@ case '5':
             down_right() = 0;  // Segment bas-droit
             down() = 0; // Segment bas-bas
             break;
-        case 'e':            //"Exécution des commandes" des segments
+        case 'e': 
+        case 14://"Exécution des commandes" des segments
             up() = 0; // Segment haut-haut
             up_left() = 0;  // Segment haut-gauche
             up_right() = 1; // Segment haut-droit
@@ -217,7 +261,8 @@ case '5':
             down_right() = 1;  // Segment bas-droit
             down() = 0; // Segment bas-bas
             break;       
-        case 'f': //Afficher lettre F
+        case 'f':
+        case 15://Afficher lettre F
             up() = 0; // Segment haut-haut
             up_left() = 0;  // Segment haut-gauche
             up_right() = 1; // Segment haut-droit
@@ -227,7 +272,20 @@ case '5':
             down() = 1; // Segment bas-bas
             break;
     }
-        
+}
+
+void printDigit (int number)
+{    
+    printOneDigit(4, number % 16);
+    
+    number /= 16;
+    printOneDigit(3, number % 16);
+    
+    number /= 16;
+    printOneDigit(2, number%16);
+    
+    number /= 16;
+    printOneDigit(1, number%16);
 }
 
 int main(int argc, char** argv)
@@ -251,19 +309,39 @@ int main(int argc, char** argv)
     LATAbits.LATA10 = 0;
     */
     
+    ANSELBbits.ANSB11 = 0;  // SW5 disabled analog
+    ANSELBbits.ANSB10 = 0;  // SW6 disabled analog
+    ANSELBbits.ANSB9 = 0;   // SW7 disabled analog    
+    ANSELBbits.ANSB8 = 0;   // SW7 disabled analog    
+    ANSELBbits.ANSB0 = 0;
+    ANSELBbits.ANSB1 = 0;
+    
     TRISFbits.TRISF3 = 1;
     TRISFbits.TRISF5 = 1;
     TRISFbits.TRISF4 = 1;
     TRISDbits.TRISD15 = 1; 
+    TRISDbits.TRISD14 = 1;
+    TRISBbits.TRISB11 = 1;
+    TRISBbits.TRISB10 = 1;
+    TRISBbits.TRISB9 = 1;
     
-    int number; 
+    // buttons
+    TRISBbits.TRISB1 = 1;
+    TRISBbits.TRISB8 = 1;
+    TRISAbits.TRISA15 = 1;
+    TRISBbits.TRISB0 = 1;
+    TRISFbits.TRISF0 = 1;
+    
+    int number;
+    int i;
     
     while(1)
     {
         //activateRGB(32, 54, 78);
 
-        number = 0;
-        
+        //number = 0;
+              
+        /*
         if (SW0 == 1)
             number++;
         if (SW1 == 1)
@@ -272,20 +350,28 @@ int main(int argc, char** argv)
             number += 4;
         if (SW3 == 1)
             number += 8;
-                
-        if (number == 10)
-            number = 'a';
-        else if (number == 11)
-            number = 'b';
-        else if (number == 12)
-            number = 'c';
-        else if (number == 13)
-            number = 'd';
-        else if (number == 14)
-            number = 'e';
-        else if (number == 15)
-            number = 'f';
-            
+        if (SW4 == 1)
+            number += 16;
+        if (SW5 == 1)
+            number += 32;
+        if (SW6 == 1)
+            number += 64;
+        if (SW7 == 1)
+            number += 128;
+        */
+        
+        if (BUT_LEFT)
+            number = 1;
+        if (BUT_RIGHT)
+            number = 2;
+        if (BUT_UP)
+            number = 3;
+        if (BUT_MIDDLE)
+            number = 5;
+        if (BUT_DOWN)
+            number = 4;
+
+        
         printDigit(number);
     }
     

@@ -12,11 +12,22 @@
 extern "C" {
 #endif
 
-    // switchs
+// switchs
 #define SW0   PORTFbits.RF3
 #define SW1   PORTFbits.RF5
 #define SW2   PORTFbits.RF4
-#define SW3   PORTDbits.RD15 
+#define SW3   PORTDbits.RD15
+#define SW4     PORTDbits.RD14
+#define SW5     PORTBbits.RB11
+#define SW6     PORTBbits.RB10
+#define SW7     PORTBbits.RB9
+    
+// Buttons
+#define BUT_UP  PORTBbits.RB1
+#define BUT_RIGHT   PORTBbits.RB8
+#define BUT_DOWN    PORTAbits.RA15
+#define BUT_LEFT    PORTBbits.RB0
+#define BUT_MIDDLE  PORTFbits.RF0    
     
 // 7-segments
 #define up()  LATGbits.LATG12 // Segment haut-haut
