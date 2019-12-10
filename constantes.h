@@ -38,7 +38,28 @@ extern "C" {
 #define down_left()  LATGbits.LATG15 // Segment bas-gauche
 #define down()  LATGbits.LATG13 // Segment bas-bas
 
+typedef enum State
+{
+    
+    start,
+    number_saved1,
+    wait_secondNumber,
+    calculate,
+    print_result,
+    done
+} State;
+
+typedef enum Operation
+{
+    plus,
+    minus,
+    divide,
+    mult,
+    no_operation
+} Operation;
+
 #ifdef	__cplusplus
+    
 }
 #endif
 
